@@ -1,6 +1,6 @@
 (ns picturefillproxy.core
   (:gen-class)
-  (:require [responzive.resize :as resize])
+  (:require [picturefillproxy.resize :as resize])
   (:use org.httpkit.server
         [ring.middleware.file :only [wrap-file]]
         [compojure.route :only [files not-found ]]
@@ -23,6 +23,6 @@
 
 (defn -main
   [& args]
-  (start-server 8080 "/Users/kai/Projects/responzive/example"))
+  (start-server 8080 "/Users/kai/Projects/picturefillproxy/example"))
 
 
