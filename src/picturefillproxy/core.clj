@@ -5,7 +5,8 @@
         [ring.middleware.file :only [wrap-file]]
         [compojure.route :only [files not-found ]]
         [compojure.handler :only [site]]
-        [compojure.core :only [defroutes routes GET POST DELETE ANY context]]))
+        [compojure.core :only [defroutes routes GET POST DELETE ANY context]]
+        [clojure.tools.cli :refer [parse-opts]]))
 
 (defn async-handler [path ring-request]
   (with-channel ring-request channel
@@ -21,8 +22,24 @@
     (run-server (wrap-file handler path)
                 {:port port})))
 
+(def cli-options
+  ;; An option with a required argument
+  [["-p" "--port PORT" "Port number"
+    :default 8080
+    :parse-fn #(Integer/parseInt %)
+    :validate [#(< 0 % 0x10000) "Must be a number between 0 and 65536"]]
+   ;; A non-idempotent option
+   ["-P" "--path PATH" "Web path"
+    :default "."]
+   ;; A boolean option defaulting to nil
+   ["-h" "--help"]])
+
+
 (defn -main
   [& args]
-  (start-server 8080 "/Users/kai/Projects/picturefillproxy/example"))
+  (let [parse-result (parse-opts args cli-options)
+        options (:options parse-result)]
+    (prn options)
+    (start-server (:port options)  (:path options))))
 
 

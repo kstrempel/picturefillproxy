@@ -9,5 +9,6 @@
                  [ring/ring-core "1.2.1"]
                  [org.clojure/tools.cli "0.3.1"]
                  [javax.servlet/servlet-api "2.5"]
+                 [org.clojure/tools.cli "0.3.1"]
                  [net.mikera/imagez "0.3.1"]]
   :main picturefillproxy.core)
