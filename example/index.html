@@ -13,19 +13,23 @@
 	</head>
 	<body>
 		
-		<h1>Picturefill: A &lt;picture&gt; element polyfill</h1>
+		<h1>Picturefillproxy example: A &lt;picture&gt; element polyfill</h1>
 				
-		<p>For more info: <a href="http://github.com/scottjehl/picturefill">see project home.</a></p>
+		<p>For more info: see <a
+ href="https://github.com/kstrempel/picturefillproxy">project</a>
+home of the proxy and the <a
+ href="https://github.com/kstrempel/picturefillproxy">project</a> home of the
+		javascript library.</p>
 		
-		<span data-picture data-alt="The Heart of Gold in
-			front of the 30C3">
+		<span data-picture data-alt="The Heart of Gold in front of the 30C3">
 			<span data-src="external/imgs/rocket_180.jpg"></span>
 			<span data-src="external/imgs/rocket_375.jpg" data-media="(min-width: 400px)"></span>
 			<span data-src="external/imgs/rocket_480.jpg" data-media="(min-width: 800px)"></span>
 			<span data-src="external/imgs/rocket.jpg" data-media="(min-width: 1000px)"></span>
 
 			<!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
-			<noscript><img src="external/imgs/rocket_180.jpg" alt="A giant stone face at The Bayon temple in Angkor Thom, Cambodia"></noscript>
+			<noscript><img
+			src="external/imgs/rocket_180.jpg" alt="The Heart of Gold in front of the 30C3"></noscript>
 		</span>
 	</body>
 </html>

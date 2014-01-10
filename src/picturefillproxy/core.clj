@@ -3,9 +3,6 @@
   (:require [picturefillproxy.resize :as resize])
   (:use org.httpkit.server
         [ring.middleware.file :only [wrap-file]]
-        [compojure.route :only [files not-found ]]
-        [compojure.handler :only [site]]
-        [compojure.core :only [defroutes routes GET POST DELETE ANY context]]
         [clojure.tools.cli :refer [parse-opts]]))
 
 (defn async-handler [path ring-request]
