@@ -5,17 +5,27 @@
         [ring.middleware.file :only [wrap-file]]
         [clojure.tools.cli :refer [parse-opts]]))
 
+(defn send404
+  [channel]
+  (send! channel {:status 404
+                  :body "not found"}))
+
+
 (defn async-handler [path ring-request]
   (with-channel ring-request channel
     (if (.endsWith (:uri ring-request) ".jpg")
-      (send! channel {:status 200
-                      :headers {"Content-Type" "image/jpg"}
-                      :body (resize/get-stream path (:uri ring-request))}))))   
-
+      (let [result (resize/get-stream path (:uri ring-request))]
+        (if (nil? result)
+          (send404 channel)
+          (send! channel {:status 200
+                          :headers {"Content-Type" "image/jpg"}
+                          :body result})))
+      (send404 channel))))
+  
 (defn start-server 
   [port path]
   (let [handler (partial async-handler path)]
-    (prn "web server running")
+    (println "server started")
     (run-server (wrap-file handler path)
                 {:port port})))
 
@@ -36,7 +46,6 @@
   [& args]
   (let [parse-result (parse-opts args cli-options)
         options (:options parse-result)]
-    (prn options)
     (start-server (:port options)  (:path options))))
 
 
